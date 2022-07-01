@@ -49,12 +49,12 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
     print("voip-registtering with token ");
     print("voip-calling voice-accessToken");
     final function =
-        FirebaseFunctions.instance.httpsCallable("voice-accessToken");
+        FirebaseFunctions.instance.httpsCallable("accessToken");
 
     final data = {
       "platform": Platform.isIOS ? "iOS" : "Android",
     };
-
+    
     final result = await function.call(data);
     print("voip-result");
     print(result.data);
@@ -63,8 +63,9 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
       androidToken = await FirebaseMessaging.instance.getToken();
       print("androidToken is " + androidToken!);
     }
+    // TwilioVoice.instance.registerClient(user, clientName)
     TwilioVoice.instance
-        .setTokens(accessToken: result.data, deviceToken: androidToken);
+        .setTokens(accessToken: result.data['jwt_token'], deviceToken: androidToken);
   }
 
   var registered = false;
@@ -129,11 +130,22 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
 
   var hasPushedToCall = false;
 
+  AppLifecycleState? state;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    this.state = state;
+    print("Cassady didChangeAppLifecycleState to: ${this.state} received: $state");
+    if (state == AppLifecycleState.resumed) {
+      checkActiveCall();
+    }
+  }
+
+
   void waitForCall() {
     checkActiveCall();
     TwilioVoice.instance.callEventsListener
       ..listen((event) {
-        print("voip-onCallStateChanged $event");
+        print("Cassady voip-onCallStateChanged $event");
 
         switch (event) {
           case CallEvent.answer:
@@ -170,6 +182,7 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
               if (state != AppLifecycleState.resumed) {
                 TwilioVoice.instance.showBackgroundCallUI();
               } else if (state == null || state == AppLifecycleState.resumed) {
+                //HERE
                 pushToCallScreen();
                 hasPushedToCall = true;
               }
@@ -188,15 +201,6 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
       });
   }
 
-  AppLifecycleState? state;
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    this.state = state;
-    print("didChangeAppLifecycleState");
-    if (state == AppLifecycleState.resumed) {
-      checkActiveCall();
-    }
-  }
 
   @override
   void dispose() {
@@ -220,7 +224,7 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
                 TextFormField(
                   controller: _controller,
                   decoration: InputDecoration(
-                      labelText: 'Client Identifier or Phone Number'),
+                      labelText: 'Client Identifier or Phone Number'),  
                 ),
                 SizedBox(
                   height: 10,
