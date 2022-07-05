@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -62,10 +61,14 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
     if (Platform.isAndroid) {
       androidToken = await FirebaseMessaging.instance.getToken();
       print("androidToken is " + androidToken!);
-    }
-    // TwilioVoice.instance.registerClient(user, clientName)
-    TwilioVoice.instance
+          TwilioVoice.instance
         .setTokens(accessToken: result.data['jwt_token'], deviceToken: androidToken);
+        return;
+    }     
+    // TwilioVoice.instance.registerClient(user, clientName)
+    print('platform: ${data['platform']} accessToken: ${result.data['jwt_token']}');
+    TwilioVoice.instance
+        .setTokens(accessToken: result.data['jwt_token']);
   }
 
   var registered = false;
