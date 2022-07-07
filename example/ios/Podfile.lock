@@ -1,93 +1,90 @@
 PODS:
-  - cloud_functions (1.0.3):
-    - Firebase/Functions (= 7.3.0)
+  - cloud_functions (3.0.5):
+    - Firebase/Functions (= 8.8.0)
     - firebase_core
     - Flutter
-  - Firebase/Auth (7.3.0):
+  - Firebase/Auth (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 7.3.0)
-  - Firebase/CoreOnly (7.3.0):
-    - FirebaseCore (= 7.3.0)
-  - Firebase/Functions (7.3.0):
+    - FirebaseAuth (~> 8.8.0)
+  - Firebase/CoreOnly (8.8.0):
+    - FirebaseCore (= 8.8.0)
+  - Firebase/Functions (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseFunctions (~> 7.3.0)
-  - Firebase/Messaging (7.3.0):
+    - FirebaseFunctions (~> 8.8.0)
+  - Firebase/Messaging (8.8.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 7.3.0)
-  - firebase_auth (1.1.0):
-    - Firebase/Auth (= 7.3.0)
+    - FirebaseMessaging (~> 8.8.0)
+  - firebase_auth (3.1.4):
+    - Firebase/Auth (= 8.8.0)
     - firebase_core
     - Flutter
-  - firebase_core (1.0.3):
-    - Firebase/CoreOnly (= 7.3.0)
+  - firebase_core (1.8.0):
+    - Firebase/CoreOnly (= 8.8.0)
     - Flutter
-  - firebase_messaging (9.1.1):
-    - Firebase/Messaging (= 7.3.0)
+  - firebase_messaging (10.0.9):
+    - Firebase/Messaging (= 8.8.0)
     - firebase_core
     - Flutter
-  - FirebaseAuth (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseCore (7.3.0):
-    - FirebaseCoreDiagnostics (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.11.0):
-    - GoogleDataTransport (~> 8.4)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Logger (~> 7.0)
+  - FirebaseAuth (8.8.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseCore (8.8.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.15.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
     - nanopb (~> 2.30908.0)
-  - FirebaseFunctions (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseInstallations (7.11.0):
-    - FirebaseCore (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-    - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (7.11.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstallations (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
-  - FirebaseMessaging (7.3.0):
-    - FirebaseCore (~> 7.0)
-    - FirebaseInstanceID (~> 7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
-    - GoogleUtilities/Environment (~> 7.0)
-    - GoogleUtilities/Reachability (~> 7.0)
-    - GoogleUtilities/UserDefaults (~> 7.0)
+  - FirebaseFunctions (8.8.0):
+    - FirebaseCore (~> 8.0)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseInstallations (8.15.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/UserDefaults (~> 7.7)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - FirebaseMessaging (8.8.0):
+    - FirebaseCore (~> 8.0)
+    - FirebaseInstallations (~> 8.0)
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Reachability (~> 7.4)
+    - GoogleUtilities/UserDefaults (~> 7.4)
+    - nanopb (~> 2.30908.0)
   - Flutter (1.0.0)
-  - GoogleDataTransport (8.4.0):
-    - GoogleUtilities/Environment (~> 7.2)
-    - nanopb (~> 2.30908.0)
-    - PromisesObjC (~> 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.5.0):
+  - GoogleDataTransport (9.1.4):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30910.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.7.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.5.0):
+  - GoogleUtilities/Environment (7.7.0):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.5.0):
+  - GoogleUtilities/Logger (7.7.0):
     - GoogleUtilities/Environment
-  - GoogleUtilities/Network (7.5.0):
+  - GoogleUtilities/Network (7.7.0):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.5.0)"
-  - GoogleUtilities/Reachability (7.5.0):
+  - "GoogleUtilities/NSData+zlib (7.7.0)"
+  - GoogleUtilities/Reachability (7.7.0):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.5.0):
+  - GoogleUtilities/UserDefaults (7.7.0):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.6.1)
+  - GTMSessionFetcher/Core (1.7.2)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
-  - PromisesObjC (1.2.12)
+  - PromisesObjC (2.1.1)
   - twilio_voice (0.0.1):
     - Flutter
     - TwilioVoice (~> 6.3.0)
@@ -109,7 +106,6 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseFunctions
     - FirebaseInstallations
-    - FirebaseInstanceID
     - FirebaseMessaging
     - GoogleDataTransport
     - GoogleUtilities
@@ -133,27 +129,26 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/twilio_voice/ios"
 
 SPEC CHECKSUMS:
-  cloud_functions: c4ab28246ffa9b4391e21a7f93ae75171b6c6863
-  Firebase: 26223c695fe322633274198cb19dca8cb7e54416
-  firebase_auth: d09964a120e218411768f5ca2d3ce938abd319f2
-  firebase_core: b5d81dfd4fb2d6f700e67de34d9a633ae325c4e9
-  firebase_messaging: 7547c99f31466371f9cfcb733d5a1bf32a819872
-  FirebaseAuth: c224a0cf1afa0949bd5c7bfcf154b4f5ce8ddef2
-  FirebaseCore: 4d3c72622ce0e2106aaa07bb4b2935ba2c370972
-  FirebaseCoreDiagnostics: 68ad972f99206cef818230f3f3179d52ccfb7f8c
-  FirebaseFunctions: 56b7275ad46d936b77b64ecacd306e77db7be251
-  FirebaseInstallations: a58d4f72ec5861840b84df489f2668d970df558a
-  FirebaseInstanceID: ad5135045a498d7775903efd39762d2cdfa1be27
-  FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  GoogleDataTransport: cd9db2180fcecd8da1b561aea31e3e56cf834aa7
-  GoogleUtilities: eea970f4a389963963bffe8d8fabe43540678b9c
-  GTMSessionFetcher: 36689134877faeb055b27dfa4ccc9ceaa42e029e
+  cloud_functions: bd1bf3640509a57f1b078b76a70d7ec4fc559654
+  Firebase: 629510f1a9ddb235f3a7c5c8ceb23ba887f0f814
+  firebase_auth: 0b7168e2db1bff6e5b40a7dc268447b8dedb59c1
+  firebase_core: 3b4c707f5a8eff38f52fd5580895bcd89357bf42
+  firebase_messaging: c2570c4b5aeb1b9dc1b40a3b4a246e246cd583a8
+  FirebaseAuth: bcf0adeff88bda5dcb3beeabe5760f1226ab7b2f
+  FirebaseCore: 98b29e3828f0a53651c363937a7f7d92a19f1ba2
+  FirebaseCoreDiagnostics: 92e07a649aeb66352b319d43bdd2ee3942af84cb
+  FirebaseFunctions: 747034115d113cf600c4995ff7e4d384697e7c49
+  FirebaseInstallations: 40bd9054049b2eae9a2c38ef1c3dd213df3605cd
+  FirebaseMessaging: 419b5c9d84f294a753c6501d8cfb9ced1ce37304
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
   twilio_voice: d69bb425ecbb17031f143675876e9ae2114e0249
   TwilioVoice: 6b1d796dcdec4ec6e6d2165bc66a266db1d2d93f
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3
