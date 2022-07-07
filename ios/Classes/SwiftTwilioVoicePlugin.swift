@@ -104,6 +104,11 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
         
         let arguments:Dictionary<String, AnyObject> = flutterCall.arguments as! Dictionary<String, AnyObject>;
         
+        if flutterCall.method == "loadDeviceToken" {
+            if let deviceToken = deviceToken {
+                self.sendPhoneCallEvents(description: "DEVICETOKEN|\(deviceToken.hexString)", isError: false)
+            }
+        }
         if flutterCall.method == "tokens" {
             guard let token = arguments["accessToken"] as? String else {return}
             self.accessToken = token
@@ -340,9 +345,6 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
         guard registrationRequired() || deviceToken != credentials.token else { return }
 
         let deviceToken = credentials.token
-        // notify dart of deviceTOken
-        self.sendPhoneCallEvents(description: "GOTDEVICETOKEN|\(credentials.token.hexString)", isError: false)
-        // customChannel.invokeMethod("onDeviceToken", arguments: credentials.token.hexString);
 
         self.sendPhoneCallEvents(description: "LOG|pushRegistry:attempting to register with twilio", isError: false)
         if let token = accessToken {
@@ -351,7 +353,7 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
                     self.sendPhoneCallEvents(description: "LOG|An error occurred while registering: \(error.localizedDescription)", isError: false)
                     self.sendPhoneCallEvents(description: "DEVICETOKEN|\(String(decoding: deviceToken, as: UTF8.self))", isError: false)
                 }
-                else {sendPhoneCallEvents
+                else {
                     self.sendPhoneCallEvents(description: "LOG|Successfully registered for VoIP push notifications.", isError: false)
                 }
             }

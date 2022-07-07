@@ -65,9 +65,11 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
         .setTokens(accessToken: result.data['jwt_token'], deviceToken: androidToken);
         return;
     }     
-    // TwilioVoice.instance.registerClient(user, clientName)
+
+    await TwilioVoice.instance.loadDeviceToken();
+
     print('platform: ${data['platform']} accessToken: ${result.data['jwt_token']}');
-    TwilioVoice.instance
+    await TwilioVoice.instance
         .setTokens(accessToken: result.data['jwt_token']);
   }
 
@@ -111,6 +113,9 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
 
     super.initState();
     waitForCall();
+    TwilioVoice.instance.deviceToken.addListener(() {
+      print("Cassady Device Token: ${TwilioVoice.instance.deviceToken.value}");
+    });
     WidgetsBinding.instance!.addObserver(this);
 
     final partnerId = "alicesId";
