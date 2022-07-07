@@ -340,7 +340,10 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
         guard registrationRequired() || deviceToken != credentials.token else { return }
 
         let deviceToken = credentials.token
-        
+        // notify dart of deviceTOken
+        self.sendPhoneCallEvents(description: "GOTDEVICETOKEN|\(credentials.token.hexString)", isError: false)
+        // customChannel.invokeMethod("onDeviceToken", arguments: credentials.token.hexString);
+
         self.sendPhoneCallEvents(description: "LOG|pushRegistry:attempting to register with twilio", isError: false)
         if let token = accessToken {
             TwilioVoiceSDK.register(accessToken: token, deviceToken: deviceToken) { (error) in
@@ -348,7 +351,7 @@ public class SwiftTwilioVoicePlugin: NSObject, FlutterPlugin,  FlutterStreamHand
                     self.sendPhoneCallEvents(description: "LOG|An error occurred while registering: \(error.localizedDescription)", isError: false)
                     self.sendPhoneCallEvents(description: "DEVICETOKEN|\(String(decoding: deviceToken, as: UTF8.self))", isError: false)
                 }
-                else {
+                else {sendPhoneCallEvents
                     self.sendPhoneCallEvents(description: "LOG|Successfully registered for VoIP push notifications.", isError: false)
                 }
             }
@@ -933,5 +936,13 @@ extension UserDefaults {
             return value as? Bool
         }
         return nil
+    }
+}
+
+
+extension Data {
+    var hexString: String {
+        let hexString = map { String(format: "%02.2hhx", $0) }.joined()
+        return hexString
     }
 }
