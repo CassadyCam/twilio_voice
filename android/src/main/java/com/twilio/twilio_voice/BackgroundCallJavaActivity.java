@@ -33,13 +33,12 @@ import com.twilio.voice.CallInvite;
 public class BackgroundCallJavaActivity extends AppCompatActivity {
 
     private static String TAG = "BackgroundCallActivity";
-    public static final String TwilioPreferences = "com.twilio.twilio_voicePreferences";
+    public static final String TwilioPreferences = "mx.TwilioPreferences";
 
 
     //    private Call activeCall;
     private NotificationManager notificationManager;
-    
-    private PowerManager powerManager;
+
     private PowerManager.WakeLock wakeLock;
 
     private TextView tvUserName;
@@ -52,7 +51,6 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_background_call);
-        powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
 
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvCallStatus = (TextView) findViewById(R.id.tvCallStatus);
@@ -72,7 +70,8 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
                 kgm.requestDismissKeyguard(this, null);
 
             } else {
-                wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
+                PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+                wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK, TAG);
                 wakeLock.acquire();
 
                 getWindow().addFlags(
@@ -92,19 +91,17 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
     private void handleCallIntent(Intent intent) {
         if (intent != null) {
 
-            
-            if (intent.getStringExtra(Constants.CALL_FROM) != null) {
-                activateSensor();
-                String fromId = intent.getStringExtra(Constants.CALL_FROM).replace("client:", "");
 
+            if (intent.getStringExtra(Constants.CALL_FROM) != null) {
+                String fromId = intent.getStringExtra(Constants.CALL_FROM).replace("client:", "");
                 SharedPreferences preferences = getApplicationContext().getSharedPreferences(TwilioPreferences, Context.MODE_PRIVATE);
-                String caller = preferences.getString(fromId, preferences.getString("defaultCaller", getString(R.string.unknown_caller)));
+                String caller = preferences.getString(fromId, preferences.getString("defaultCaller", "Desconocido"));
                 Log.d(TAG, "handleCallIntent");
                 Log.d(TAG, "caller from");
                 Log.d(TAG, caller);
 
                 tvUserName.setText(caller);
-                tvCallStatus.setText(getString(R.string.connected_status));
+                tvCallStatus.setText("Conectado");
                 Log.d(TAG, "handleCallIntent-");
                 configCallUI();
             } else {
@@ -113,23 +110,6 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
         }
     }
 
-    private void activateSensor() {
-        if (wakeLock == null) {
-            Log.d(TAG, "New wakeLog");
-            wakeLock = powerManager.newWakeLock(PowerManager.PROXIMITY_SCREEN_OFF_WAKE_LOCK, "incall");
-        }
-        if (!wakeLock.isHeld()) {
-            Log.d(TAG, "wakeLog acquire");
-            wakeLock.acquire();
-        } 
-    }
-
-    private void deactivateSensor() {
-        if (wakeLock != null && wakeLock.isHeld()) {
-            Log.d(TAG, "wakeLog release");
-            wakeLock.release();
-        } 
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -146,7 +126,7 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
             }
         }
     }
-    
+
 
     boolean isMuted = false;
 
@@ -217,7 +197,9 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        deactivateSensor();
+        if (wakeLock != null) {
+            wakeLock.release();
+        }
     }
 
 }

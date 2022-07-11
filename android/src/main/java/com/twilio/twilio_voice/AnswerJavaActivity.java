@@ -34,7 +34,7 @@ import com.twilio.voice.CallInvite;
 public class AnswerJavaActivity extends AppCompatActivity {
 
     private static String TAG = "AnswerActivity";
-    public static final String TwilioPreferences = "com.twilio.twilio_voicePreferences";
+    public static final String TwilioPreferences = "mx.TwilioPreferences";
 
     private NotificationManager notificationManager;
     private boolean isReceiverRegistered = false;
@@ -54,6 +54,8 @@ public class AnswerJavaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "Cassady AnswerJavaActivity OnCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
 
@@ -197,8 +199,10 @@ public class AnswerJavaActivity extends AppCompatActivity {
             finish();
         } else {
             Log.d(TAG, "Answering call");
+
             activeCallInvite.accept(this, callListener);
             notificationManager.cancel(activeCallNotificationId);
+
         }
     }
 
@@ -296,6 +300,7 @@ public class AnswerJavaActivity extends AppCompatActivity {
     }
 
     private void registerReceiver() {
+        Log.d(TAG, "Cassady Test 123");
         Log.d(TAG, "Registering answerJavaActivity receiver");
         if (!isReceiverRegistered) {
             IntentFilter intentFilter = new IntentFilter();
