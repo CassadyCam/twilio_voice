@@ -107,7 +107,7 @@ public class BackgroundCallJavaActivity extends AppCompatActivity {
                 tvCallStatus.setText(getString(R.string.connected_status));
                 Log.d(TAG, "handleCallIntent-");
                 configCallUI();
-            }else{
+            } else {
                 finish();
             }
         }
