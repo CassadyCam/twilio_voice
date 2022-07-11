@@ -36,10 +36,13 @@ class TwilioVoice {
     return _callEventsListener!;
   }
 
-  get deviceToken1 => deviceTokenChanged;
   OnDeviceTokenChanged? deviceTokenChanged;
   void setOnDeviceTokenChanged(OnDeviceTokenChanged deviceTokenChanged) {
     deviceTokenChanged = deviceTokenChanged;
+  }
+
+  Future<bool?> loadDeviceToken() {
+    return _channel.invokeMethod('loadDeviceToken', <String, dynamic>{});
   }
 
   /// register fcm token, and device token for android
@@ -52,12 +55,20 @@ class TwilioVoice {
     });
   }
 
-  /// Wheter or not should the user receive a notification after a missed call, default to true.
+  /// Whether or not should the user receive a notification after a missed call, default to true.
   ///
   /// Setting is persisted across restarts until overriden
   set showMissedCallNotifications(bool value) {
     _channel
         .invokeMethod('show-notifications', <String, dynamic>{"show": value});
+  }
+
+  /// Whether or not should the user can click return call option from missed call notification, default to true.
+  ///
+  /// Setting is persisted across restarts until overriden
+  set showReturnCallOptionInNotifications(bool value) {
+    _channel
+        .invokeMethod('show-return-call-option', <String, dynamic>{"show": value});
   }
 
   /// Unregisters from Twilio
@@ -122,16 +133,13 @@ class TwilioVoice {
   }
 
   CallEvent _parseCallEvent(String state) {
-    if (state.startsWith("GOTDEVICETOKEN|")) {
-      deviceToken.value = state.split('|')[1];
-      return CallEvent.log;
-    }
     if (state.startsWith("DEVICETOKEN|")) {
       var token = state.split('|')[1];
+      deviceToken.value = token;
       if (deviceTokenChanged != null) {
         deviceTokenChanged!(token);
       }
-      return CallEvent.log;
+      return CallEvent.iosDeviceToken;
     } else if (state.startsWith("LOG|")) {
       List<String> tokens = state.split('|');
       print(tokens[1]);
