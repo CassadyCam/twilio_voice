@@ -36,10 +36,13 @@ class TwilioVoice {
     return _callEventsListener!;
   }
 
-  get deviceToken1 => deviceTokenChanged;
   OnDeviceTokenChanged? deviceTokenChanged;
   void setOnDeviceTokenChanged(OnDeviceTokenChanged deviceTokenChanged) {
     deviceTokenChanged = deviceTokenChanged;
+  }
+
+  Future<bool?> loadDeviceToken() {
+    return _channel.invokeMethod('loadDeviceToken', <String, dynamic>{});
   }
 
   /// register fcm token, and device token for android
@@ -122,16 +125,13 @@ class TwilioVoice {
   }
 
   CallEvent _parseCallEvent(String state) {
-    if (state.startsWith("GOTDEVICETOKEN|")) {
-      deviceToken.value = state.split('|')[1];
-      return CallEvent.log;
-    }
     if (state.startsWith("DEVICETOKEN|")) {
       var token = state.split('|')[1];
+      deviceToken.value = token;
       if (deviceTokenChanged != null) {
         deviceTokenChanged!(token);
       }
-      return CallEvent.log;
+      return CallEvent.iosDeviceToken;
     } else if (state.startsWith("LOG|")) {
       List<String> tokens = state.split('|');
       print(tokens[1]);
