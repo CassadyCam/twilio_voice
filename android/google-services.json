@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "1009915420229",
+    "project_id": "fluttertwilio-8aad6",
+    "storage_bucket": "fluttertwilio-8aad6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009915420229:android:1d9bcedba644ac88fa4d2c",
+        "android_client_info": {
+          "package_name": "com.twilio.twilio_voice_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009915420229-a11mfrfkgvp4l9vdevmmiop3tr88r8kk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl8Qc4a7teMDBbYPCzxqlYW8gwgnkYb1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009915420229-a11mfrfkgvp4l9vdevmmiop3tr88r8kk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1009915420229-llacpi88u9d8d2t690k47nkn25ffsmme.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.schoolstatus.dial"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009915420229:android:f1884af82ebd0d73fa4d2c",
+        "android_client_info": {
+          "package_name": "com.twilio.twilio_voice_example.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009915420229-a11mfrfkgvp4l9vdevmmiop3tr88r8kk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCl8Qc4a7teMDBbYPCzxqlYW8gwgnkYb1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009915420229-a11mfrfkgvp4l9vdevmmiop3tr88r8kk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1009915420229-llacpi88u9d8d2t690k47nkn25ffsmme.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.schoolstatus.dial"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

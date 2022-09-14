@@ -18,12 +18,9 @@ dependencies:
   firebase_auth: ^3.1.4
 
   twilio_voice:
-    # When depending on this package from a real application you should use:
-    #   twilio_voice: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
-    path: ../
+    git:
+      url: git@github.com:schoolstatus/twilio_voice.git
+      ref: ff4bccc6a2e24442d9545bbe70f99064b61fa177
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

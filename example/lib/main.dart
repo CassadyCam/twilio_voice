@@ -47,13 +47,12 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
   register() async {
     print("voip-registtering with token ");
     print("voip-calling voice-accessToken");
-    final function =
-        FirebaseFunctions.instance.httpsCallable("accessToken");
+    final function = FirebaseFunctions.instance.httpsCallable("accessToken");
 
     final data = {
       "platform": Platform.isIOS ? "iOS" : "Android",
     };
-    
+
     final result = await function.call(data);
     print("voip-result");
     print(result.data);
@@ -61,16 +60,16 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
     if (Platform.isAndroid) {
       androidToken = await FirebaseMessaging.instance.getToken();
       print("androidToken is " + androidToken!);
-          TwilioVoice.instance
-        .setTokens(accessToken: result.data['jwt_token'], deviceToken: androidToken);
-        return;
-    }     
+      TwilioVoice.instance.setTokens(
+          accessToken: result.data['jwt_token'], deviceToken: androidToken);
+      return;
+    }
 
     await TwilioVoice.instance.loadDeviceToken();
 
-    print('platform: ${data['platform']} accessToken: ${result.data['jwt_token']}');
-    await TwilioVoice.instance
-        .setTokens(accessToken: result.data['jwt_token']);
+    print(
+        'platform: ${data['platform']} accessToken: ${result.data['jwt_token']}');
+    await TwilioVoice.instance.setTokens(accessToken: result.data['jwt_token']);
   }
 
   var registered = false;
@@ -116,6 +115,14 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
     TwilioVoice.instance.deviceToken.addListener(() {
       print("Cassady Device Token: ${TwilioVoice.instance.deviceToken.value}");
     });
+
+    // If Android set plugin flag to accept incoming calls from in-app
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (Platform.isAndroid) {
+        await TwilioVoice.instance.setAppHasStarted(appHasStarted: true);
+      }
+    });
+
     WidgetsBinding.instance!.addObserver(this);
 
     final partnerId = "alicesId";
@@ -142,12 +149,12 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     this.state = state;
-    print("Cassady didChangeAppLifecycleState to: ${this.state} received: $state");
+    print(
+        "Cassady didChangeAppLifecycleState to: ${this.state} received: $state");
     if (state == AppLifecycleState.resumed) {
       checkActiveCall();
     }
   }
-
 
   void waitForCall() {
     checkActiveCall();
@@ -175,7 +182,7 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
             break;
           case CallEvent.declined:
             final activeCall = TwilioVoice.instance.call.activeCall;
-            if(activeCall != null) {
+            if (activeCall != null) {
               TwilioVoice.instance.call.hangUp().then((value) {
                 hasPushedToCall = false;
               });
@@ -209,7 +216,6 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
       });
   }
 
-
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
@@ -232,7 +238,7 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
                 TextFormField(
                   controller: _controller,
                   decoration: InputDecoration(
-                      labelText: 'Client Identifier or Phone Number'),  
+                      labelText: 'Client Identifier or Phone Number'),
                 ),
                 SizedBox(
                   height: 10,
@@ -249,6 +255,36 @@ class _DialScreenState extends State<DialScreen> with WidgetsBindingObserver {
                     TwilioVoice.instance.call
                         .place(to: _controller.text, from: userId);
                     pushToCallScreen();
+                  },
+                ),
+                ElevatedButton(
+                  child: Text("Register"),
+                  onPressed: () async {
+                    final function =
+                        FirebaseFunctions.instance.httpsCallable("accessToken");
+
+                    final data = {
+                      "platform": Platform.isIOS ? "iOS" : "Android",
+                    };
+
+                    final result = await function.call(data);
+                    String? androidToken;
+                    if (Platform.isAndroid) {
+                      androidToken =
+                          await FirebaseMessaging.instance.getToken();
+                      await TwilioVoice.instance.setTokens(
+                          accessToken: result.data['jwt_token'],
+                          deviceToken: androidToken);
+                      print("Cassady Registered to Twilio");
+                      return;
+                    }
+                  },
+                ),
+                ElevatedButton(
+                  child: Text("Unregister"),
+                  onPressed: () async {
+                    await TwilioVoice.instance.unregister();
+                    print("Cassady Unregistered to Twilio");
                   },
                 ),
               ],
